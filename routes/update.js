@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const multer = require('multer');
 const updateController = require('../controllers/updateController');
-
+const pkg = require(path.join(__dirname, '../package.json'));
 const router = express.Router();
 
 // Middleware проверки авторизации (для всех маршрутов админ-панели)
@@ -37,7 +37,10 @@ const upload = multer({ storage });
 
 // Страница загрузки обновления
 router.get('/', (req, res) => {
-  res.render('update', { user: req.session.user });
+  res.render('update', {
+    user: req.session.user,
+    version: pkg.version,           // передаём текущую версию
+  });
 });
 
 // Обработка загрузки файла обновления через контроллер

@@ -49,7 +49,12 @@ exports.api = async (req, res) => {
     } else {
       return res.status(400).json({ message: 'Неверный тип оборудования' });
     }
-    
+	
+	 // Определяем, какой статус нужно установить после проверки
+	const reversedStatus = expectedStatus === 'activeEntrance'
+	  ? 'activeExit'
+	  : 'activeEntrance';   
+	  
     // Проверяем для каждого passId, что запись существует и имеет ожидаемый статус
     for (let id of passIds) {
       const log = await PassLog.findOne({ passId: id });
@@ -61,6 +66,12 @@ exports.api = async (req, res) => {
           message: `Пасс с кодом ${id} имеет неверный статус (${log.status}). Ожидается: ${expectedStatus}` 
         });
       }
+	  // Меняем статус на обратный
+	  await PassLog.findOneAndUpdate(
+		{ passId: id },
+		{ status: reversedStatus },
+		{ new: true }
+	  );	  
     }
     
     // Если все проверки прошли успешно, возвращаем ответ 200
