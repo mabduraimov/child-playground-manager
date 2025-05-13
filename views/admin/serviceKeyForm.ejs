@@ -4,22 +4,51 @@
   <meta charset="UTF-8">
   <title><%= key ? 'Редактировать' : 'Новый' %> сервисный ключ</title>
   <link rel="stylesheet" href="/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <header>
-    <h1><a href="/admin">Главная</a> » 
-      <a href="/admin/service-keys">Сервисные ключи</a> » 
-      <%= key ? 'Редактировать' : 'Новый' %>
-    </h1>
-  </header>
-  <main>
-    <form action="<%= key ? '/admin/service-keys/' + key._id + '/delete' : '/admin/service-keys/new' %>" method="POST">
-      <label>Код:</label>
-      <input name="code" value="<%= key ? key.code : '' %>" required>
-      <label>Описание (опц.):</label>
-      <input name="description" value="<%= key ? key.description : '' %>">
-      <button class="btn"><%= key ? 'Сохранить' : 'Создать' %></button>
-    </form>
-  </main>
+  <div class="container">
+    <header class="page-header">
+      <h1>
+        <span><%= key ? 'Редактировать' : 'Добавить' %> ключ</span>
+      </h1>
+    </header>
+
+    <div class="card">
+      <form action="<%= key ? '/admin/service-keys/' + key._id + '/delete' : '/admin/service-keys/new' %>" 
+            method="POST" class="form">
+        
+        <div class="form-group">
+          <label for="code">Код</label>
+          <input 
+            type="text" 
+            id="code" 
+            name="code" 
+            class="input" 
+            value="<%= key ? key.code : '' %>" 
+            placeholder="Введите уникальный код" 
+            required>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Описание (опц.)</label>
+          <input 
+            type="text" 
+            id="description" 
+            name="description" 
+            class="input" 
+            value="<%= key ? key.description : '' %>" 
+            placeholder="Краткое описание">
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            <%= key ? 'Сохранить' : 'Создать' %>
+          </button>
+          <a href="/admin/service-keys" class="btn btn-secondary">Отмена</a>
+        </div>
+      </form>
+    </div>
+  </div>
 </body>
 </html>

@@ -171,3 +171,66 @@ input[type="checkbox"] {
   height: 100% !important;
   display: block;
 }
+
+/* === Стили для страницы создания/редактирования сервисного ключа === */
+
+/* Обёртка .card уже необходима в шаблоне — она возьмёт существующие стили .card */
+
+/* Поля ввода */
+.card .form-group .input,
+.card .form-group input[type="text"] {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px 12px;
+  transition: border-color 0.2s ease;
+}
+
+.card .form-group .input:focus {
+  border-color: #357ABD;
+  outline: none;
+}
+
+/* Заголовки и лейблы */
+.card .form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Кнопки действий */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Основная кнопка */
+.btn-primary {
+  background-color: #4a90e2;
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: #357ABD;
+}
+
+/* Вторичная (серая) кнопка */
+.btn-secondary {
+  background-color: #e2e6ea;
+  color: #333;
+}
+.btn-secondary:hover {
+  background-color: #c8cdd1;
+}
+
+/* Если нужны более крупные поля на мобильных: */
+@media (max-width: 480px) {
+  .form-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+  .form-actions .btn {
+    width: 100%;
+  }
+}
