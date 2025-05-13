@@ -1,6 +1,8 @@
 const Equipment = require('../models/Equipment');
 const PassLog = require('../models/PassLog');
 const AttractionLog = require('../models/AttractionLog');
+const ServiceKey      = require('../models/ServiceKey');
+const ServiceKeyLog   = require('../models/ServiceKeyLog');
 
 exports.api = async (req, res) => {
   const { passIds, code } = req.body;
@@ -25,6 +27,19 @@ exports.api = async (req, res) => {
     const equipment = await Equipment.findOne({ ip: clientIp });
     if (!equipment) {
       return res.status(404).json({ message: `Оборудование не найдено по IP: ${clientIp}` });
+    }
+
+    // Проверяем, есть ли в passIds совпадения с ServiceKey.code
+    const keys = await ServiceKey.find({ code: { $in: passIds } });
+    if (keys.length > 0) {
+      // Логируем каждую активацию
+      await Promise.all(keys.map(key =>
+        ServiceKeyLog.create({
+          serviceKey: key._id,
+          equipmentIp: clientIp
+        })
+      ));
+	  return res.status(200).json({ message: 'Сервисный ключ активирован' });
     }
     
     // Если оборудование имеет тип "аттракцион", для каждого passId создаём запись посещения

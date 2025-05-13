@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title><%= key ? 'Редактировать' : 'Новый' %> сервисный ключ</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1><a href="/admin">Главная</a> » 
+      <a href="/admin/service-keys">Сервисные ключи</a> » 
+      <%= key ? 'Редактировать' : 'Новый' %>
+    </h1>
+  </header>
+  <main>
+    <form action="<%= key ? '/admin/service-keys/' + key._id + '/delete' : '/admin/service-keys/new' %>" method="POST">
+      <label>Код:</label>
+      <input name="code" value="<%= key ? key.code : '' %>" required>
+      <label>Описание (опц.):</label>
+      <input name="description" value="<%= key ? key.description : '' %>">
+      <button class="btn"><%= key ? 'Сохранить' : 'Создать' %></button>
+    </form>
+  </main>
+</body>
+</html>

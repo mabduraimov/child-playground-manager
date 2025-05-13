@@ -15,6 +15,7 @@ const app = express();
 const favicon = require('serve-favicon');
 const bcrypt = require('bcrypt');
 const fs = require('fs');
+const adminServiceKeys = require('./routes/adminServiceKeys');
 
 // Подключение к MongoDB
 mongoose.connect(dbConfig.mongoURI)
@@ -80,6 +81,8 @@ app.use('/admin', adminRoutes);
 
 // Маршруты обновления
 app.use('/update', updateRoutes);
+
+app.use('/admin/service-keys', adminServiceKeys);
 
 const PORT = process.env.PORT || 80;
 app.listen(PORT, () => {

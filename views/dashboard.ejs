@@ -13,6 +13,7 @@
       <div class="user-info">
         <% if(user.role === 'admin') { %>
            <a href="/update">Обновление</a> |
+		   <a href="/admin/service-keys">Сервисные ключи</a> |
 		   <a href="/admin/equipment">Список оборудования</a> | 
         <% } %>
         Пользователь: <%= user.username %> | <a href="/logout">Выйти</a>

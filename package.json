@@ -1,6 +1,6 @@
 ﻿{
   "name": "child-playground-manager",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Сайт для управления детскими развлекательными площадками",
   "main": "app.js",
   "scripts": {
